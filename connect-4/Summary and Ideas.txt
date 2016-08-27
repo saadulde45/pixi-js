@@ -1,0 +1,28 @@
+This is a running doc that contains the basic summary of the game and any ideas that pop up during development. The ideas are categorized and prioritized. 
+
+
+SUMMARY - 
+
+The idea of this game is to get 4 dots connected in any straight or diagonal line.
+
+
+MVP (MINIMUM VIABLE PRODUCT) - 
+
+1. In the most basic version the game should implement the basic connect 4 logic without any bells or whistles
+2. Use of Pixi.js is a must
+3. Provide a computer opponent
+4. A minimum set of animations for Win/Loss scenario
+
+
+ADDITIONAL FEATURES - 
+
+1. Different difficulty levels of the computer opponent
+2. A tutorial of some sort for someone who is new to the game
+3. Additional animations while playing
+4. A total count of wins/losses
+
+
+POSSIBLE INCLUSIONS - 
+
+1. Background music
+2. A theme to the game like a Retro theme based off Zuma or a Sugary theme like Candy Crush, or even better an actual FPS game inspired theme like Hitman or Crysis
