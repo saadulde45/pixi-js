@@ -1,6 +1,7 @@
 window.addEventListener('load', function (event) {
     
     var renderer, stage, sprite, direction;
+    var ballArray = [];
     
     PIXI.loader.add({
         name: "sharingan"
@@ -21,7 +22,7 @@ window.addEventListener('load', function (event) {
         //Create the renderer
         renderer = PIXI.autoDetectRenderer(256, 256);
         renderer.view.style.border = "1px solid black";
-        renderer.backgroundColor = 0x061639;
+        renderer.backgroundColor = 0xBABF42;
         renderer.autoResize = true;
         renderer.view.style.position = "absolute";
         renderer.view.style.display = "block";
@@ -34,9 +35,20 @@ window.addEventListener('load', function (event) {
         //Create a container object called the `stage`
         stage = new PIXI.Container();
         
-        var text = new PIXI.Text("Finally get the hang of this!", {
+        build();
+        
+        loop();
+    }
+    
+    function build() {
+        
+        var text = new PIXI.Text("Connect 4 Game", {
             fill: 0xEEEEEE
         });
+        
+        console.log(text);
+        text.position.set((window.innerWidth - text.width)/2, 100);
+        
         stage.addChild(text);
         
         sprite = new PIXI.Sprite(PIXI.loader.resources.sharingan.texture);
@@ -47,9 +59,79 @@ window.addEventListener('load', function (event) {
 //        sprite.scale.set(2, 2);
         sprite.anchor.set(0.5, 0.5);
         
-        stage.addChild(sprite);
+//        stage.addChild(sprite);
         
-        loop();
+        generateGrid(4, 4);
+        
+        generateBall();
+        
+//        dropBall(2);
+    }
+    
+    function generateGrid(columns, rows) {
+        
+        var width = 75;
+        var height = 75;
+        var initialPointX = 100;
+        var initialPointY = 100;
+        
+        for(var j = 0; j < rows; j++) {
+        
+            for(var i = 0; i < columns; i++) {
+
+                var graphics = new PIXI.Graphics();
+
+                graphics.beginFill();
+
+                // set the line style to have a width of 5 and set the color to red
+                graphics.lineStyle(5, 0xFF0000);
+
+                // draw a rectangle
+                graphics.drawRect(initialPointX, initialPointY, width, height);
+                
+                graphics.endFill();
+
+                initialPointX += width;
+
+                stage.addChild(graphics);    
+            }
+            
+            initialPointX = 100;
+            initialPointY += height;
+        }
+        
+    }
+    
+    function generateBall() {
+        
+        var sprite = new PIXI.Graphics();
+        
+        sprite.beginFill();
+        
+        sprite.fillColor = 0xFE0000;
+        
+        console.log(sprite);
+        
+        sprite.drawCircle(137.5, 50, 37);
+        
+        sprite.endFill();
+        
+        ballArray.push(sprite);
+        
+        stage.addChild(sprite);
+    }
+    
+    function dropBall(speed) {
+        
+        requestAnimationFrame(dropBall);
+        
+        var ball = ballArray[0];
+
+        if(ball.y <= 400) {
+            ball.y += speed;
+        }
+        
+        renderer.render(stage);
     }
 
     function loop() {
